@@ -22,8 +22,10 @@ connection.connect(function (err) {
 function itemsDisplay() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
+        console.log("Current inventory: ")
+        console.log("ID#")
         for (let i = 0; i < res.length; i++) {
-        console.log(res[i].item_id + " " + res[i].product_name + " " + res[i].price);
+        console.log(res[i].item_id + " " + res[i].product_name + " " + "$" + res[i].price);
         }
         console.log("==========================================")
         customerPrompt()
@@ -33,10 +35,13 @@ function itemsDisplay() {
 function customerPrompt() {
     inquirer.prompt([{ 
         name: "Bamazon",
-        message: "Which item would you like to purchase?",
-        type: "list",
-        choices: []
-
+        message: "Please enter the ID number of the item you'd like to purchase.",
+        type: "input",
+    },
+    {
+        name: "Bamazon",
+        message: "How many of thie item would you like?",
+        type: "input"
         /* Pass your questions in here */
 }]).then(answers => {
             // Use user feedback for... whatever!!
