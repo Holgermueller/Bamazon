@@ -10,13 +10,15 @@ const connection = mysql.createConnection({
     database:"bamazon_DB"
 });
 
+client.connect();
+
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connect as id " + connection.threadId);
     connection.end();
 })
 
-//insert info for 10 random 'mock' items into database
+
 
 //create a function to view items available for sale
 //should show: ids, names, and prices for products

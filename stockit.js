@@ -13,7 +13,33 @@ const connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connect as id " + connection.threadId);
-    connection.end();
+    addProducts();
+    afterConnection()
 })
 
 //insert info for 10 random 'mock' items into database
+function addProducts() {
+    console.log("Inserting new product..\.n");
+    let query = connection.query(
+        "INSERT INTO products SET?",
+        {
+            product_name: 'wrist straps',
+            department_name: 'fitness',
+            price: 18,
+            stock_quantity: 10
+        },
+        function(err,res) {
+            console.log(res.affectedRows + " product inserted!\n");
+            //addProducts();
+        }
+    );
+    console.log(query.sqp);
+}
+
+function afterConnection() {
+    connection.query("SELECT * FROM products", function(err, res) {
+        if (err) throw err;
+        console.log(res);
+        connection.end();
+    })
+}
