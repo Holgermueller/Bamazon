@@ -23,9 +23,9 @@ function addProducts() {
     let query = connection.query(
         "INSERT INTO products SET?",
         {
-            product_name: 'wrist straps',
-            department_name: 'fitness',
-            price: 18,
+            product_name: 'microwave',
+            department_name: 'home and kitchen',
+            price: 30,
             stock_quantity: 10
         },
         function(err,res) {

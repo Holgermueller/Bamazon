@@ -1,4 +1,7 @@
 #mock inventory:
+
+##Saved incase I make an error later
+
 item 1:
 product_name: 'myPod',
 department_name: 'Electronics',
@@ -57,4 +60,10 @@ item 10:
 product_name: 'wrist straps',
 department_name: 'fitness',
 price: 18,
+stock_quantity: 10
+
+item 11;
+product_name: 'microwave',
+department_name: 'home and kitchen',
+price: 30,
 stock_quantity: 10
