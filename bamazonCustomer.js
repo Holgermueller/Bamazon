@@ -15,22 +15,22 @@ const connection = mysql.createConnection({
 connection.connect(function (err) {
     if (err) throw err;
     //console.log("connect as id " + connection.threadId);
-    testDisplay()
-    //displayItems()
-    //connection.end();
+    itemsDisplay()
+    
 })
 
-function testDisplay() {
+function itemsDisplay() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
         for (let i = 0; i < res.length; i++) {
         console.log(res[i].item_id + " " + res[i].product_name + " " + res[i].price);
         }
-        connection.end();
+        console.log("==========================================")
+        customerPrompt()
     })
 }
 
-function displayItems() {
+function customerPrompt() {
     inquirer.prompt([{ 
         name: "Bamazon",
         message: "Which item would you like to purchase?",
@@ -41,6 +41,8 @@ function displayItems() {
 }]).then(answers => {
             // Use user feedback for... whatever!!
         });
+        //PUT THIS SOMEWHERE!!!: connection.end();
+        
     }
 
 //create a function to view items available for sale
