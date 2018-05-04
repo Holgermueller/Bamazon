@@ -49,15 +49,30 @@ function customerOrder(questions) {
     }]).then(answers => {
         // Use user feedback for... whatever!!
         console.log("You chose item " + answers.idInput);
-        console.log("You'd like " + answers.quantityInput + " of them.")
+        connection.query("SELECT * FROM products", function (err, res) {
+        console.log("You'd like " + answers.quantityInput + " " + res[answers.idInput].product_name)
+        })
+//when customer places order, app should check if store had enough stock to fill customer's order
+//If not: console log: Insufficient quantity!, and prevent order from going through
+        switch(answers.quantityInput) {
+            case "quantityChecker":
+            quantityChecker();
+            break;
+
+//if store has enough stock, update database to reflect quantity remaining
+//after update, show customer cost of their purchase
+            case "fulfillOrder":
+            fulfillOrder();
+            break;
+        }
     });
     //PUT THIS SOMEWHERE!!!: connection.end();    
 }
 
+function quantityChecker() {
+    if (answers.quantityInput > res[i].stock_quantity) {
+        console.log("Insufficient quantity!")
+    } else {
 
-
-//when customer places order, app should check if store had enough stock to fill customer's order
-//If not: console log: Insufficient quantity!, and prevent order from going through
-
-//if store has enough stock, update database to reflect quantity remaining
-//after update, show customer cost of their purchase
+    }
+}
