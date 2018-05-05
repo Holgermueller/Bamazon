@@ -1,6 +1,7 @@
 //require node packages
 const inquirer = require('inquirer');
 const mysql = require('mysql');
+const colors = require('colors');
 //connect to mysql database
 const connection = mysql.createConnection({
     host: "localhost",
@@ -54,7 +55,7 @@ function customerOrder(questions) {
                 //If not: console log: Insufficient quantity!, and prevent order from going through
                     connection.query("SELECT stock_quantity FROM products", function (err, res) {
                         if (answers.quantityInput > res[0].stock_quantity) {
-                            console.log("Insufficient quantity!");
+                            console.log("Insufficient quantity!".red);
                         }
                         //if store has enough stock, update database to reflect quantity remaining
                         //after update, show customer cost of their purchase

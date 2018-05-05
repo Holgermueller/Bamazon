@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Holgermueller/Bamazon#readme",
   "dependencies": {
+    "colors": "^1.2.4",
     "inquirer": "^5.2.0",
     "mysql": "^2.15.0",
     "require": "^2.4.20"
