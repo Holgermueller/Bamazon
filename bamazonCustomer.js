@@ -52,8 +52,8 @@ function customerOrder(questions) {
             }]).then(answers => {
                 //when customer places order, app should check if store had enough stock to fill customer's order
                 //If not: console log: Insufficient quantity!, and prevent order from going through
-                    connection.query("SELECT * FROM products", function (err, res) {
-                        if (quantityInput > res[choices].stock_quantity) {
+                    connection.query("SELECT stock_quantity FROM products", function (err, res) {
+                        if (answers.quantityInput > res[0].stock_quantity) {
                             console.log("Insufficient quantity!");
                         }
                         //if store has enough stock, update database to reflect quantity remaining
