@@ -63,6 +63,7 @@ function customerOrder(questions) {
                             let total = answers.quantityInput * res[0].price;
                             console.log("Your purchase total is: $" + total);
                             console.log("Thank you for your purchase!");
+                            //delete quantity from stock!!
                             })
                         }
                     })    
