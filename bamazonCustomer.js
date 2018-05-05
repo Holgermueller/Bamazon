@@ -40,39 +40,39 @@ function customerOrder(questions) {
         }]).then(answers => {
             // Use user feedback for... whatever!!
             connection.query("SELECT * FROM products", function (err, res) {
-                console.log("You chose item " + answers.idInput);
+                //console.log("You chose item " + answers.idInput);
             })
+
+            let quantityInput = [];
 
             inquirer.prompt([{
                 name: "quantityInput",
                 message: "How many would you like?",
-                type: "input"
+                type: quantityInput
             }]).then(answers => {
                 //when customer places order, app should check if store had enough stock to fill customer's order
                 //If not: console log: Insufficient quantity!, and prevent order from going through
-                switch (answers.quantityInput) {
-                    case "quantityChecker":
-                        quantityChecker();
-                        break;
-
-                    //if store has enough stock, update database to reflect quantity remaining
-                    //after update, show customer cost of their purchase
-                    case "fulfillOrder":
-                        fulfillOrder();
-                        break;
-                })
-        }
-    //PUT THIS SOMEWHERE!!!: connection.end();    
-})
-}
-
-function quantityChecker() {
-    connection.query("SELECT * FROM products", function (err, res) {
-        if (answers.quantityInput > res[i].stock_quantity) {
-            console.log("Insufficient quantity!")
-        } else {
-
-        }
+                    connection.query("SELECT * FROM products", function (err, res) {
+                        if (quantityInput > res[choices].stock_quantity) {
+                            console.log("Insufficient quantity!");
+                        }
+                        //if store has enough stock, update database to reflect quantity remaining
+                        //after update, show customer cost of their purchase
+                        else {
+                            console.log("Your purchase total is: ");
+                        }
+                    })
+                
+            })
+        })
+        //PUT THIS SOMEWHERE!!!: connection.end();    
     })
 }
+
+
+
+function fulfillOrder() {
+    connection.query("SELECT * FROM products", function (err, res) {
+
+    })
 }
