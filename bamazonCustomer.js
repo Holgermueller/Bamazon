@@ -58,21 +58,16 @@ function customerOrder(questions) {
                         }
                         //if store has enough stock, update database to reflect quantity remaining
                         //after update, show customer cost of their purchase
-                        else {
-                            console.log("Your purchase total is: ");
+                        else {answers.quantityInput <= res[0].stock_quantity;
+                            connection.query("SELECT price FROM products", function (err, res){
+                            let total = answers.quantityInput * res[0].price;
+                            console.log("Your purchase total is: $" + total);
+                            console.log("Thank you for your purchase!");
+                            })
                         }
-                    })
-                
+                    })    
             })
         })
         //PUT THIS SOMEWHERE!!!: connection.end();    
-    })
-}
-
-
-
-function fulfillOrder() {
-    connection.query("SELECT * FROM products", function (err, res) {
-
     })
 }
