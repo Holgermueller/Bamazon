@@ -15,64 +15,64 @@ const connection = mysql.createConnection({
 connection.connect(function (err) {
     if (err) throw err;
     //console.log("connect as id " + connection.threadId);
-    itemsDisplay()
+    customerOrder()
 })
 
 //create a function to view items available for sale
-function itemsDisplay() {
-    connection.query("SELECT * FROM products", function (err, res) {
-        if (err) throw err;
-        console.log("Current inventory: ")
-        console.log("ID#")
-        for (let i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + " " + res[i].product_name + " " + "$" + res[i].price);
-        }
-        console.log("==========================================")
-        customerOrder()
-    })
-}
-
 //prompt user with two messages:
 //1) ask for ID of item they'd like to buy
 //2) as how many units they'd like to buy
 function customerOrder(questions) {
 
-    inquirer.prompt([{
-        name: "idInput",
-        message: "Please enter the ID number of the item you'd like to purchase.",
-        type: "input",
-    },
-    {
-        name: "quantityInput",
-        message: "How many would you like?",
-        type: "input"
-    }]).then(answers => {
-        // Use user feedback for... whatever!!
-        console.log("You chose item " + answers.idInput);
-        connection.query("SELECT * FROM products", function (err, res) {
-        console.log("You'd like " + answers.quantityInput + " " + res[answers.idInput].product_name)
-        })
-//when customer places order, app should check if store had enough stock to fill customer's order
-//If not: console log: Insufficient quantity!, and prevent order from going through
-        switch(answers.quantityInput) {
-            case "quantityChecker":
-            quantityChecker();
-            break;
+    connection.query("SELECT * FROM products", function (err, res) {
 
-//if store has enough stock, update database to reflect quantity remaining
-//after update, show customer cost of their purchase
-            case "fulfillOrder":
-            fulfillOrder();
-            break;
+        let choices = [];
+
+        for (let i = 0; i < res.length; i++) {
+            choices.push(res[i].product_name);
         }
-    });
+
+        inquirer.prompt([{
+            name: "idInput",
+            message: "Please select an item to purchase.",
+            type: "list",
+            choices: choices
+        }]).then(answers => {
+            // Use user feedback for... whatever!!
+            connection.query("SELECT * FROM products", function (err, res) {
+                console.log("You chose item " + answers.idInput);
+            })
+
+            inquirer.prompt([{
+                name: "quantityInput",
+                message: "How many would you like?",
+                type: "input"
+            }]).then(answers => {
+                //when customer places order, app should check if store had enough stock to fill customer's order
+                //If not: console log: Insufficient quantity!, and prevent order from going through
+                switch (answers.quantityInput) {
+                    case "quantityChecker":
+                        quantityChecker();
+                        break;
+
+                    //if store has enough stock, update database to reflect quantity remaining
+                    //after update, show customer cost of their purchase
+                    case "fulfillOrder":
+                        fulfillOrder();
+                        break;
+                })
+        }
     //PUT THIS SOMEWHERE!!!: connection.end();    
+})
 }
 
 function quantityChecker() {
-    if (answers.quantityInput > res[i].stock_quantity) {
-        console.log("Insufficient quantity!")
-    } else {
+    connection.query("SELECT * FROM products", function (err, res) {
+        if (answers.quantityInput > res[i].stock_quantity) {
+            console.log("Insufficient quantity!")
+        } else {
 
-    }
+        }
+    })
+}
 }
