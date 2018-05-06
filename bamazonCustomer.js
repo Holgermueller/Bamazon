@@ -54,8 +54,10 @@ function customerOrder(questions) {
                 //when customer places order, app should check if store had enough stock to fill customer's order
                 //If not: console log: Insufficient quantity!, and prevent order from going through
                     connection.query("SELECT stock_quantity FROM products", function (err, res) {
-                        if (answers.quantityInput > res[0].stock_quantity) {
+                        //for (let i = 0; i < res.length; i++)
+                        if (answers.quantityInput > choices.stock_quantity) {
                             console.log("Insufficient quantity!".red);
+                            connection.end();
                         }
                         //if store has enough stock, update database to reflect quantity remaining
                         //after update, show customer cost of their purchase
@@ -65,11 +67,11 @@ function customerOrder(questions) {
                             console.log("Your purchase total is: $" + total);
                             console.log("Thank you for your purchase!");
                             //delete quantity from stock!!
+                            connection.end();
                             })
                         }
                     })    
             })
         })
-        //PUT THIS SOMEWHERE!!!: connection.end();    
     })
 }
