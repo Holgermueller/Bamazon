@@ -25,13 +25,15 @@ To create this, you'll need the following node packages:
 
 ![Image for step 4](./Images/Bam-img-3.png)
 
+![Image for step 5](./Images/Bam-img-4.png)
+
 5. If you there isn't enough stock to fulfill the order, this message will appear.
 
-![Image for step 5](./Images/Bam-img-4.png)
+![image for step 6](./Images/Bam-img-5.png)
 
 6. However, if there is enough stock to fulfill the order, this message will appear:
 
-![image for step 6](./Images/Bam-img-5.png)
+
 
 7. 
 
