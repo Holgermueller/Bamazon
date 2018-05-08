@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log("connect as id " + connection.threadId);
+    //console.log("connect as id " + connection.threadId);
     chooseATask()
 })
 
@@ -60,11 +60,17 @@ function viewAllProducts() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         for (let i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + " Name:" + res[i].product_name + " $" + res[i].price + " Quantity:" + res[i].stock_quantity);
+            console.log(res[i].item_id + " Name:".yellow + res[i].product_name + " $".green + res[i].price + " Quantity:".blue + res[i].stock_quantity);
             connection.end();
         }
     });
 
 }
+
+function viewLowProducts();
+
+function addToInventory();
+
+function addNewProduct();
 
 //connection.end()
