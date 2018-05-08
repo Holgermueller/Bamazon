@@ -34,13 +34,13 @@ function customerOrder() {
 
         inquirer.prompt([{
             name: "idInput",
-            message: "Please select an item to purchase",
+            message: "Please select an item to purchase".blue,
             type: "list",
             choices: choices
         },
         {
             name: "quantityInput",
-            message: "How many would you like?",
+            message: "How many would you like?".blue,
             type: quantityInput
         }]).then(answers => {
 
@@ -57,13 +57,16 @@ function customerOrder() {
                 if (answers.quantityInput <= chosenProduct.stock_quantity) {
 
                     connection.query("SELECT price FROM products", function (err, res) {
-                        let total = answers.quantityInput * chosenProduct.price;
-                        console.log("Your purchase total is: ".blue + "$".green + total);
-                        console.log("Thank you for your purchase!".green);
                         //delete quantity from stock!!
+                        connection.query("UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",
+                            [answers.quantityInput, chosenProduct.item_id], function (err, res) {
+                                let total = answers.quantityInput * chosenProduct.price;
+                                console.log("Your purchase total is: ".blue + "$".green + total);
+                                console.log("Thank you for your purchase!".green);
+                            })
                         connection.end();
                     })
-                //If not: console log: Insufficient quantity!, and prevent order from going through
+                    //If not: console log: Insufficient quantity!, and prevent order from going through
                 } else {
                     console.log("Insufficient quantity!".red);
                     connection.end();
