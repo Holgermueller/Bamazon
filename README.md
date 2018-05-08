@@ -12,7 +12,7 @@ To create this, you'll need the following node packages:
 
 ### Bamazon Customer:
 
-1. 
+1. First, run the command **node bamazonCustomer.js**.
 
 ![Image of Step one]
-./Images/Bam-img-1.png
+../Images/Bam-img-1.png
