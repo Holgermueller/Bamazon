@@ -19,47 +19,50 @@ connection.connect(function (err) {
 
 function chooseATask() {
 
-    let task = 
+    let task =
 
-    inquirer.prompt([{/* Pass your questions in here */
-        name: 'task',
-        message: 'What business shall we conduct today?'.green,
-        type: 'list',
-        choices: [
-            'View all products',
-            'View low inventory',
-            'Add to inventory',
-            'Add a new product'
-        ]
-    }]).then(answers => {
-        switch (answers.task) {
-            case "View all products":
-                viewAllProducts();
-                break;
+        inquirer.prompt([{/* Pass your questions in here */
+            name: 'task',
+            message: 'What business shall we conduct today?'.green,
+            type: 'list',
+            choices: [
+                'View all products',
+                'View low inventory',
+                'Add to inventory',
+                'Add a new product'
+            ]
+        }]).then(answers => {
+            switch (answers.task) {
+                case "View all products":
+                    viewAllProducts();
+                    break;
 
-            case "View low inventory":
-                viewLowProducts();
-                break;
+                case "View low inventory":
+                    viewLowProducts();
+                    break;
 
-            case "Add to inventory":
-                addToInventory();
-                break;
+                case "Add to inventory":
+                    addToInventory();
+                    break;
 
-            case "Add a new product":
-                addNewProduct();
-                break;
+                case "Add a new product":
+                    addNewProduct();
+                    break;
 
-            default:
-                break;
-        }
-    });
+                default:
+                    break;
+            }
+        });
 }
 
 function viewAllProducts() {
 
     connection.query("SELECT * FROM products", function (err, res) {
-        console.log(res);
-        console.log(err);
+        if (err) throw err;
+        for (let i = 0; i < res.length; i++) {
+            console.log(res[i].item_id + " Name:" + res[i].product_name + " $" + res[i].price + " Quantity:" + res[i].stock_quantity);
+            connection.end();
+        }
     });
 
 }
