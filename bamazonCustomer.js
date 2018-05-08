@@ -11,23 +11,22 @@ const connection = mysql.createConnection({
     database: "bamazon_DB"
 });
 
-//client.connect();
-
 connection.connect(function (err) {
     if (err) throw err;
     //console.log("connect as id " + connection.threadId);
-    customerOrder()
+    customerOrder();
 })
 
 //create a function to view items available for sale
 //prompt user with two messages:
 //1) ask for ID of item they'd like to buy
 //2) as how many units they'd like to buy
-function customerOrder(questions) {
+function customerOrder() {
 
     connection.query("SELECT * FROM products", function (err, res) {
 
         let choices = [];
+        let quantityInput = [];
 
         for (let i = 0; i < res.length; i++) {
             choices.push(res[i].product_name);
@@ -35,43 +34,41 @@ function customerOrder(questions) {
 
         inquirer.prompt([{
             name: "idInput",
-            message: "Please select an item to purchase.",
+            message: "Please select an item to purchase",
             type: "list",
             choices: choices
+        },
+        {
+            name: "quantityInput",
+            message: "How many would you like?",
+            type: quantityInput
         }]).then(answers => {
-            // Use user feedback for... whatever!!
-            connection.query("SELECT * FROM products", function (err, res) {
-                //console.log("You chose item " + answers.idInput);
-            })
 
-            let quantityInput = [];
-
-            inquirer.prompt([{
-                name: "quantityInput",
-                message: "How many would you like?",
-                type: quantityInput
-            }]).then(answers => {
+            let chosenProduct;
+            for (let i = 0; i < res.length; i++) {
+                if (res[i].product_name === answers.idInput) {
+                    chosenProduct = res[i];
+                }
+            }
+            connection.query("SELECT stock_quantity FROM products", function (err, res) {
                 //when customer places order, app should check if store had enough stock to fill customer's order
+                //if store has enough stock, update database to reflect quantity remaining
+                //after update, show customer cost of their purchase
+                if (answers.quantityInput <= chosenProduct.stock_quantity) {
+
+                    connection.query("SELECT price FROM products", function (err, res) {
+                        let total = answers.quantityInput * chosenProduct.price;
+                        console.log("Your purchase total is: ".blue + "$".green + total);
+                        console.log("Thank you for your purchase!".green);
+                        //delete quantity from stock!!
+                        connection.end();
+                    })
                 //If not: console log: Insufficient quantity!, and prevent order from going through
-                    connection.query("SELECT stock_quantity FROM products", function (err, res) {
-                        //for (let i = 0; i < res.length; i++)
-                        if (answers.quantityInput > choices.stock_quantity) {
-                            console.log("Insufficient quantity!".red);
-                            connection.end();
-                        }
-                        //if store has enough stock, update database to reflect quantity remaining
-                        //after update, show customer cost of their purchase
-                        else {answers.quantityInput <= res[0].stock_quantity;
-                            connection.query("SELECT price FROM products", function (err, res){
-                            let total = answers.quantityInput * res[0].price;
-                            console.log("Your purchase total is: $" + total);
-                            console.log("Thank you for your purchase!");
-                            //delete quantity from stock!!
-                            connection.end();
-                            })
-                        }
-                    })    
+                } else {
+                    console.log("Insufficient quantity!".red);
+                    connection.end();
+                }
             })
-        })
+        });
     })
 }

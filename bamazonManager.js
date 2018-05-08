@@ -10,10 +10,10 @@ const connection = mysql.createConnection({
     database: "bamazon_DB"
 });
 
-//client.connect();
-
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connect as id " + connection.threadId);
-    connection.end()
+
 })
+
+//connection.end()
