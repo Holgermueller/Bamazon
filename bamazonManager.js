@@ -19,6 +19,8 @@ connection.connect(function (err) {
 
 function chooseATask() {
 
+    let task = 
+
     inquirer.prompt([{/* Pass your questions in here */
         name: 'task',
         message: 'What business shall we conduct today?'.green,
@@ -30,25 +32,36 @@ function chooseATask() {
             'Add a new product'
         ]
     }]).then(answers => {
-
         switch (answers.task) {
-            case "view-all":
+            case "View all products":
                 viewAllProducts();
                 break;
 
-            case "view-low":
+            case "View low inventory":
                 viewLowProducts();
                 break;
 
-            case "add-inventory":
+            case "Add to inventory":
                 addToInventory();
                 break;
 
-            case "add-new":
+            case "Add a new product":
                 addNewProduct();
+                break;
+
+            default:
                 break;
         }
     });
+}
+
+function viewAllProducts() {
+
+    connection.query("SELECT * FROM products", function (err, res) {
+        console.log(res);
+        console.log(err);
+    });
+
 }
 
 //connection.end()
