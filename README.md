@@ -37,7 +37,7 @@ To create this, you'll need the following node packages:
 
 ![image for conclusion](./Images/Bam-img-7.png)
 
-7. At the same time, the ordered quantity will be subtracted from the MySQL database.
+7. At the same time, the quantity of the ordered item will be subtracted from the MySQL database.
 
 ![mysqlimg1](./Images/wrk-bnch-b4.png)
 
