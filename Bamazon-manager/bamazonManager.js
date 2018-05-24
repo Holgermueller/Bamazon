@@ -2,6 +2,7 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 const colors = require('colors');
+require("console.table");
 //connect to mysql database
 const connection = mysql.createConnection({
     host: "localhost",
@@ -60,17 +61,18 @@ function viewAllProducts() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         for (let i = 0; i < res.length; i++) {
+            //console.table(products);
             console.log(res[i].item_id + " Name:".yellow + res[i].product_name + " $".green + res[i].price + " Quantity:".blue + res[i].stock_quantity);
-            connection.end();
+            //connection.end();
         }
+        chooseATask();
     });
-
 }
 
-function viewLowProducts();
+function viewLowProducts(){}
 
-function addToInventory();
+function addToInventory(){}
 
-function addNewProduct();
+function addNewProduct(){}
 
 //connection.end()

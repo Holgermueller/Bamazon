@@ -2,7 +2,7 @@
 
 A node powered online shopping center.
 
-To create this, you'll need the following node packages:
+To create this, you'll need to download the following node packages:
 
 * Mysql
 * Inquirer
