@@ -16,7 +16,7 @@ connection.connect(function (err) {
     if (err) throw err;
     //console.log("connect as id " + connection.threadId);
     chooseATask()
-})
+});
 
 function chooseATask() {
 
@@ -54,7 +54,7 @@ function chooseATask() {
                     break;
             }
         });
-}
+};
 
 function viewAllProducts() {
 
@@ -62,17 +62,24 @@ function viewAllProducts() {
         if (err) throw err;
         for (let i = 0; i < res.length; i++) {
             //console.table(products);
-            console.log(res[i].item_id + " Name:".yellow + res[i].product_name + " $".green + res[i].price + " Quantity:".blue + res[i].stock_quantity);
+            console.log("ID: ".yellow + res[i].item_id + " Name:".yellow + res[i].product_name + " $".green + res[i].price + " Quantity:".blue + res[i].stock_quantity);
             //connection.end();
         }
         chooseATask();
     });
-}
+};
 
-function viewLowProducts(){}
+function viewLowProducts() {
+    connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
+        if (err) throw err;
+        for (let i = 0; i < res.length; i++) {
+            console.log("ID: " .yellow + res[i].item_id + " Name: ".yellow + res[i].product_name + " $".green + res[i].price + " Quantity:".red + res[i].stock_quantity);
+        };
+    });
+};
 
-function addToInventory(){}
+function addToInventory() { }
 
-function addNewProduct(){}
+function addNewProduct() { }
 
 //connection.end()
