@@ -42,3 +42,7 @@ To create this, you'll need to download the following node packages:
 ![mysqlimg1](./Images/wrk-bnch-b4.png)
 
 ![mysqlimg2](./Images/wrk-bnc-after.png)
+
+### Bamazon Manager:
+
+* The Bamazon Manager app runs in a manner very similar to the Bamazon customer app, but with a few more-complicated lines of code.
