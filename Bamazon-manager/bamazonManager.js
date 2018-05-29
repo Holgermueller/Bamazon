@@ -52,7 +52,7 @@ function chooseATask() {
 
                 default:
                     break;
-            }
+            };
         });
 };
 
@@ -64,7 +64,7 @@ function viewAllProducts() {
             //console.table(products);
             console.log("ID: ".yellow + res[i].item_id + " Name:".yellow + res[i].product_name + " $".green + res[i].price + " Quantity:".blue + res[i].stock_quantity);
             //connection.end();
-        }
+        };
         chooseATask();
     });
 };
@@ -76,13 +76,14 @@ function viewLowProducts() {
         for (let i = 0; i < res.length; i++) {
             console.log("ID: ".yellow + res[i].item_id + " Name: ".yellow + res[i].product_name + " $".green + res[i].price + " Quantity:".red + res[i].stock_quantity);
         };
+        chooseATask();
     });
 };
 
 function addToInventory() {
     console.log(">>>>>Adding to stock<<<<<".green);
     connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
-        
+
         let quantityInput = [];
         let choices = [];
         for (let i = 0; i < res.length; i++) {
@@ -100,7 +101,17 @@ function addToInventory() {
             type: quantityInput
         }]).then(answers => {
             // Use user feedback for... whatever!!
-            let 
+            let chosenProduct;
+            for (let i = 0; i < res.length; i++) {
+                if (res[i].product_name === answers.replenishStock) {
+                    chosenProduct = res[i];
+                };
+            };
+
+            connection.query("UPDATE products SET stock_quantity", function(err, res){
+
+            });
+
         });
         //no code below this line, for this function
     });
