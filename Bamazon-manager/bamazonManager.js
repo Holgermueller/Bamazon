@@ -22,7 +22,7 @@ function chooseATask() {
 
     let task =
 
-        inquirer.prompt([{/* Pass your questions in here */
+        inquirer.prompt([{
             name: 'task',
             message: 'What business shall we conduct today?'.green,
             type: 'list',
@@ -57,7 +57,7 @@ function chooseATask() {
 };
 
 function viewAllProducts() {
-    console.log(">>>>>Available Stock<<<<<");
+    console.log(">>>>>Available Stock<<<<<".blue);
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         for (let i = 0; i < res.length; i++) {
@@ -70,23 +70,45 @@ function viewAllProducts() {
 };
 
 function viewLowProducts() {
-    console.log(">>>>>>>>>Re-Order Soon!<<<<<<<<<");
+    console.log(">>>>>>Re-Order Soon!<<<<<<".red);
     connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
         if (err) throw err;
         for (let i = 0; i < res.length; i++) {
-            console.log("ID: " .yellow + res[i].item_id + " Name: ".yellow + res[i].product_name + " $".green + res[i].price + " Quantity:".red + res[i].stock_quantity);
+            console.log("ID: ".yellow + res[i].item_id + " Name: ".yellow + res[i].product_name + " $".green + res[i].price + " Quantity:".red + res[i].stock_quantity);
         };
     });
 };
 
 function addToInventory() {
-    console.log(">>>>>Adding to stock<<<<<");
+    console.log(">>>>>Adding to stock<<<<<".green);
+    connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
+        
+        let quantityInput = [];
+        let choices = [];
+        for (let i = 0; i < res.length; i++) {
+            choices.push(res[i].product_name);
+        };
 
- };
+        inquirer.prompt([{
+            name: "replenishStock",
+            message: "Choose the itme you'd like to replenish.".green,
+            type: 'list',
+            choices: choices
+        }, {
+            name: 'quantityReplenishment',
+            message: 'How many would you like to add?'.green,
+            type: quantityInput
+        }]).then(answers => {
+            // Use user feedback for... whatever!!
+            let 
+        });
+        //no code below this line, for this function
+    });
+};
 
 function addNewProduct() {
-    console.log(">>>>>Adding new Item<<<<<");
+    console.log(">>>>>Adding new Item<<<<<".green);
 
- };
+};
 
 //connection.end()
