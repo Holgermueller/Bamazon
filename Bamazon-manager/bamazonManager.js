@@ -57,7 +57,7 @@ function chooseATask() {
 };
 
 function viewAllProducts() {
-
+    console.log(">>>>>Available Stock<<<<<");
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         for (let i = 0; i < res.length; i++) {
@@ -70,6 +70,7 @@ function viewAllProducts() {
 };
 
 function viewLowProducts() {
+    console.log(">>>>>>>>>Re-Order Soon!<<<<<<<<<");
     connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
         if (err) throw err;
         for (let i = 0; i < res.length; i++) {
@@ -78,8 +79,14 @@ function viewLowProducts() {
     });
 };
 
-function addToInventory() { }
+function addToInventory() {
+    console.log(">>>>>Adding to stock<<<<<");
 
-function addNewProduct() { }
+ };
+
+function addNewProduct() {
+    console.log(">>>>>Adding new Item<<<<<");
+
+ };
 
 //connection.end()
