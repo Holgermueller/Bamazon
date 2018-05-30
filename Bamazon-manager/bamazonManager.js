@@ -30,7 +30,8 @@ function chooseATask() {
                 'View all products',
                 'View low inventory',
                 'Add to inventory',
-                'Add a new product'
+                'Add a new product',
+                'Exit Menu'
             ]
         }]).then(answers => {
             switch (answers.task) {
@@ -48,6 +49,10 @@ function chooseATask() {
 
                 case "Add a new product":
                     addNewProduct();
+                    break;
+
+                case "Exit menu":
+                    exitMenu();
                     break;
 
                 default:
@@ -108,10 +113,11 @@ function addToInventory() {
                 };
             };
 
-            connection.query("UPDATE products SET stock_quantity", function(err, res){
-
+            connection.query("UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?", 
+            [answers.quantityInput, chosenProduct.stock_quantity], function(err, res){
+                console.log(">>>>>Quantity added<<<<<".blue);
             });
-
+            chooseATask();
         });
         //no code below this line, for this function
     });
@@ -121,5 +127,10 @@ function addNewProduct() {
     console.log(">>>>>Adding new Item<<<<<".green);
 
 };
+
+function exitMenu(){
+    console.log("Good bye.".blue);
+    connection.end()
+}
 
 //connection.end()
