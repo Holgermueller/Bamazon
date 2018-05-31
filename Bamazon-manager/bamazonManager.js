@@ -126,36 +126,48 @@ function addToInventory() {
 function addNewProduct() {
     console.log(">>>>>Adding new Item<<<<<".green);
 
-            inquirer.prompt([{
-                //add item name
-                name: "nameInput",
-                message: "Provie the name of the item you want to enter:",
-                type: "input"
-            },
-            //choose a dept for it
-            {
-                name: "getDept",
-                message: "Provide the name of department it belongs in:",
-                type: "input"
-            },
-            //enter the price
-            {
-                name: "getPrice",
-                message: "Enter the price:",
-                type: "input"
-            },
-            //enter quantity
-            {
-                name: "getQuantity",
-                message: "Enter the quantity:",
-                type: "input"
-            }]).then((answers) => {
-                connection.query("INSERT INTO products () VALUES ?",
-                [answers.product_name, answers.department_name, parseInt(answers.price), parseInt(answers.stock_quantity)],
-                function (err, res) {
-                    console.log(res);
-                });
+    inquirer.prompt([{
+        //add item name
+        name: "product_name",
+        message: "Provide the name of the item you want to enter:",
+        type: "input"
+    },
+    //choose a dept for it
+    {
+        name: "department_name",
+        message: "Provide the name of department it belongs in:",
+        type: "input"
+    },
+    //enter the price
+    {
+        name: "price",
+        message: "Enter the price:",
+        type: "input"
+    },
+    //enter quantity
+    {
+        name: "stock_quantity",
+        message: "Enter the quantity:",
+        type: "input"
+    }]).then((answers) => {
+
+        const product_name = answers.product_name;
+        const department_name = answers.product_name;
+        const price = answers.price;
+        const stock_quantity = answers.stock_quantity;
+    
+        const val = [
+            [product_name, department_name, parseInt(price), parseInt(stock_quantity)]
+        ];
+
+        connection.query("INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ?",
+            [val],
+            function (err, res) {
+                //console.log(res);
+                console.log(">>>>>Successful entry!!<<<<<");
+                chooseATask();
             });
+    });
 };
 
 function exitMenu() {
