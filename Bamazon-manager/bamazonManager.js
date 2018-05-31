@@ -172,8 +172,7 @@ function addNewProduct() {
 
 function exitMenu() {
     console.log("Good bye.".blue);
+    connection.end();
 }
-
-
 
 //connection.end()
