@@ -114,9 +114,8 @@ function addToInventory() {
                 };
             };
             connection.query("UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?", 
-            [answers.quantityInput, chosenProduct.stock_quantity], function(err, res){
-                let stock_quantity = answers.quantityInput + chosenProduct.stock_quantity;
-                console.log(">>>>>Quantity added<<<<<".blue);
+            [answers.quantityInput, chosenProduct.item_id], function(err, res){
+                console.log(">>>>>Quantity added!!<<<<<".blue);
             });
             chooseATask();
         });
