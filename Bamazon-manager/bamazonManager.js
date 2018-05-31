@@ -128,8 +128,10 @@ function addNewProduct() {
 
 };
 
-function exitMenu(){}
-console.log("Good bye.".blue);
-connection.end();
+function exitMenu(){
+    console.log("Good bye.".blue);
+}
+
+
 
 //connection.end()
