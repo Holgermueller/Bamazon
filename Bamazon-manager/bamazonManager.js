@@ -115,7 +115,7 @@ function addToInventory() {
             };
             connection.query("UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?", 
             [answers.quantityInput, chosenProduct.item_id], function(err, res){
-                console.log(">>>>>Quantity added!!<<<<<".blue);
+                console.log(">>>>>Quantity updated!!<<<<<".blue);
             });
             chooseATask();
         });
@@ -125,6 +125,10 @@ function addToInventory() {
 
 function addNewProduct() {
     console.log(">>>>>Adding new Item<<<<<".green);
+    //add item name
+    //choose a dept for it
+    //enter the price
+    //enter quantity
 
 };
 
