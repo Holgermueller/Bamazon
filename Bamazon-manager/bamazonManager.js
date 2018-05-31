@@ -88,33 +88,34 @@ function viewLowProducts() {
 function addToInventory() {
     console.log(">>>>>Adding to stock<<<<<".green);
     connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
-
-        let quantityInput = [];
+        
         let choices = [];
+        let quantityInput = [];
+
         for (let i = 0; i < res.length; i++) {
             choices.push(res[i].product_name);
         };
 
         inquirer.prompt([{
-            name: "replenishStock",
-            message: "Choose the itme you'd like to replenish.".green,
+            name: "idInput",
+            message: "Choose the item you'd like to replenish.".green,
             type: 'list',
             choices: choices
         }, {
-            name: 'quantityReplenishment',
+            name: 'quantityInput',
             message: 'How many would you like to add?'.green,
             type: quantityInput
         }]).then(answers => {
-            // Use user feedback for... whatever!!
+
             let chosenProduct;
             for (let i = 0; i < res.length; i++) {
-                if (res[i].product_name === answers.replenishStock) {
+                if (res[i].product_name === answers.idInput) {
                     chosenProduct = res[i];
                 };
             };
-
             connection.query("UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?", 
             [answers.quantityInput, chosenProduct.stock_quantity], function(err, res){
+                let stock_quantity = answers.quantityInput + chosenProduct.stock_quantity;
                 console.log(">>>>>Quantity added<<<<<".blue);
             });
             chooseATask();
