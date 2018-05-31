@@ -88,7 +88,7 @@ function viewLowProducts() {
 function addToInventory() {
     console.log(">>>>>Adding to stock<<<<<".green);
     connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
-        
+
         let choices = [];
         let quantityInput = [];
 
@@ -113,10 +113,10 @@ function addToInventory() {
                     chosenProduct = res[i];
                 };
             };
-            connection.query("UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?", 
-            [answers.quantityInput, chosenProduct.item_id], function(err, res){
-                console.log(">>>>>Quantity updated!!<<<<<".blue);
-            });
+            connection.query("UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?",
+                [answers.quantityInput, chosenProduct.item_id], function (err, res) {
+                    console.log(">>>>>Quantity updated!!<<<<<".blue);
+                });
             chooseATask();
         });
         //no code below this line, for this function
@@ -125,14 +125,40 @@ function addToInventory() {
 
 function addNewProduct() {
     console.log(">>>>>Adding new Item<<<<<".green);
-    //add item name
-    //choose a dept for it
-    //enter the price
-    //enter quantity
 
+            inquirer.prompt([{
+                //add item name
+                name: "nameInput",
+                message: "Provie the name of the item you want to enter:",
+                type: "input"
+            },
+            //choose a dept for it
+            {
+                name: "getDept",
+                message: "Provide the name of department it belongs in:",
+                type: "input"
+            },
+            //enter the price
+            {
+                name: "getPrice",
+                message: "Enter the price:",
+                type: "input"
+            },
+            //enter quantity
+            {
+                name: "getQuantity",
+                message: "Enter the quantity:",
+                type: "input"
+            }]).then((answers) => {
+                connection.query("INSERT INTO products () VALUES ?",
+                [answers.product_name, answers.department_name, parseInt(answers.price), parseInt(answers.stock_quantity)],
+                function (err, res) {
+                    console.log(res);
+                });
+            });
 };
 
-function exitMenu(){
+function exitMenu() {
     console.log("Good bye.".blue);
 }
 
