@@ -152,7 +152,7 @@ function addNewProduct() {
     }]).then((answers) => {
 
         const product_name = answers.product_name;
-        const department_name = answers.product_name;
+        const department_name = answers.department_name;
         const price = answers.price;
         const stock_quantity = answers.stock_quantity;
     
