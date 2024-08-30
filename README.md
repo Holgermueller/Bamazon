@@ -2,11 +2,15 @@
 
 A node powered online shopping center.
 
+## Before you start
+
 To create this, you'll need to download the following node packages:
 
 * Mysql
 * Inquirer
 * Colors
+
+You'll also need your own MySQL workbench to connect to.
 
 ## See it work:
 
@@ -37,7 +41,7 @@ To create this, you'll need to download the following node packages:
 
 ![image for conclusion](./Images/Bam-img-7.png)
 
-7. At the same time, the quantity of the ordered item will be subtracted from the MySQL database.
+7. At the same time, the quantity of the ordered item will be subtracted from the MySQL database, which you can view through your workbench.
 
 ![mysqlimg1](./Images/wrk-bnch-b4.png)
 
