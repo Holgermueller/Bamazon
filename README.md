@@ -12,11 +12,13 @@ To create this, you'll need to download the following node packages:
 
 You'll also need your own MySQL workbench to connect to.
 
+You'll also need a terminal, integrated or otherwise, through which to run the commands. This demonstraton uses an integrated terminal.
+
 ## See it work:
 
 ### Bamazon Customer:
 
-1. First, run the command **node bamazonCustomer.js**.
+1. First, run the command **node bamazonCustomer.js** in your terminal.
 
 ![Image of Step one](./Images/Bam-img-1.png)
 
@@ -46,7 +48,3 @@ You'll also need your own MySQL workbench to connect to.
 ![mysqlimg1](./Images/wrk-bnch-b4.png)
 
 ![mysqlimg2](./Images/wrk-bnc-after.png)
-
-### Bamazon Manager:
-
-* The Bamazon Manager app runs in a manner very similar to the Bamazon customer app, but with a few more-complicated lines of code.
